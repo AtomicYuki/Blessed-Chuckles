@@ -1,3 +1,114 @@
+<style>
+/* Verse of the day, reading plan */
+:is(.votd,#plan){position:relative;overflow:hidden;background:linear-gradient(180deg,#061629 0%,#081b30 50%,#061629 100%)}
+:is(.votd,#plan):before{content:'';position:absolute;left:0;right:0;top:0;height:min(640px,100%);z-index:0;background-repeat:no-repeat;background-size:cover;background-position:78% top;opacity:.3;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 52%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 52%,transparent 100%)}
+.votd:before{background-image:url(img/sky-c.jpg)}
+#plan:before{background-image:url(img/sky-b.jpg)}
+:is(.votd,#plan)>*{position:relative;z-index:1}
+.votd{padding:64px 0 56px}#today,#plan{scroll-margin-top:60px}
+.votd-card{max-width:900px;margin:0 auto;text-align:center;border:1px solid rgba(216,181,108,.27);padding:34px 26px 28px;background:radial-gradient(ellipse at 50% 130%,rgba(216,181,108,.14),transparent 55%),linear-gradient(135deg,#102b47,#071629)}
+.votd-card .eyebrow{display:block;margin-bottom:6px}
+.votd-date{color:#b9c8da;font-size:.85rem;margin:0 0 16px}
+.votd-card blockquote{margin:0 auto;max-width:720px;font-family:'Playfair Display',serif;font-size:clamp(1.25rem,2.4vw,1.8rem);line-height:1.4;font-weight:500;text-wrap:balance}
+.votd-card cite{display:block;margin:14px 0 22px;font-style:normal;color:var(--gold2);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase}
+.votd-btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.votd-btns .btn{cursor:pointer;padding:12px 22px}
+.plan-card{max-width:980px;margin:0 auto;border:1px solid rgba(216,181,108,.27);padding:30px 28px 26px;background:radial-gradient(ellipse at 50% 120%,rgba(216,181,108,.12),transparent 55%),linear-gradient(135deg,#102b47,#071629)}
+.plan-top{display:flex;flex-wrap:wrap;gap:18px 26px;align-items:center;justify-content:space-between;margin-bottom:22px}
+.plan-prog{flex:1 1 280px;min-width:0}
+.plan-prog b{display:block;font:600 1rem 'DM Sans',sans-serif;color:#fff;margin-bottom:10px}
+.plan-prog .bar{height:8px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.plan-prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:99px;transition:width .5s}
+.plan-btns{display:flex;flex-wrap:wrap;gap:10px}
+.plan-btns .btn{cursor:pointer;padding:12px 22px}
+.plan-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+.plan-list li{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid rgba(255,255,255,.08);background:rgba(8,26,47,.5);min-width:0}
+.plan-list li.next{border-color:rgba(216,181,108,.65)}
+.plan-list li.done .pd-t span{color:#9fb3c9}
+.pd-check{width:44px;height:44px;border-radius:50%;border:1px solid rgba(216,181,108,.55);background:transparent;color:transparent;font-size:1.2rem;cursor:pointer;display:grid;place-items:center;padding:0}
+.pd-check[aria-pressed=true]{background:var(--gold);color:#061629;border-color:var(--gold)}
+.pd-check:focus-visible,.pd-read:focus-visible,.plan-btns .btn:focus-visible,.votd-btns .btn:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+.pd-t{min-width:0}
+.pd-t b{display:block;font:700 .72rem 'DM Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--gold2)}
+.pd-t span{display:block;color:#e4ebf4;font-family:'Playfair Display',serif;font-size:1.02rem;margin-top:2px}
+.pd-read{padding:10px 16px;border-radius:999px;border:1px solid rgba(239,220,177,.4);background:transparent;color:#fff;font:600 .82rem 'DM Sans',sans-serif;cursor:pointer;min-height:44px}
+.pd-read:hover{border-color:var(--gold);color:var(--gold2)}
+.plan-done{display:none;margin:0 0 18px;color:var(--gold2);font-family:'Playfair Display',serif;font-size:1.15rem}
+.plan-done.on{display:block}
+.pr-q b{color:var(--gold2)}
+@media(max-width:760px){.plan-list{grid-template-columns:1fr}.plan-card{padding:22px 14px 18px}}
+@media(max-width:700px){:is(.votd,#plan):before{opacity:.24;height:min(520px,100%);background-position:70% top}}
+</style>
+<style>
+/* Gold dividers and soft card glow */
+:is(.votd,#about,#songs,#verses,#comfort,#prayers,#rosary,#plan,#saints,#watch,#videos,#bible,#prayer,.quote):after{content:'';position:absolute;left:0;right:0;bottom:0;height:28px;z-index:2;pointer-events:none;background:
+ url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 28'%3E%3Cpath d='M10 2v24M4 9h12' stroke='%23d8b56c' stroke-width='2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center 2px/14px 22px no-repeat,
+ linear-gradient(90deg,transparent,rgba(216,181,108,.6)) right calc(50% + 20px) center/min(300px,28%) 1px no-repeat,
+ linear-gradient(270deg,transparent,rgba(216,181,108,.6)) left calc(50% + 20px) center/min(300px,28%) 1px no-repeat}
+.card-glow,.verse-card,.votd-card,.ros-card,.plan-card,.content-card,.comfort-card,details.pr,.plan-list li{transition:border-color .3s,box-shadow .3s,transform .3s}
+@media(hover:hover){
+ .verse-card:hover,.votd-card:hover,.ros-card:hover,.plan-card:hover,.comfort-card:hover{border-color:rgba(239,220,177,.55);box-shadow:0 0 0 1px rgba(216,181,108,.18),0 18px 50px rgba(216,181,108,.12)}
+ .content-card:hover,details.pr:hover,.plan-list li:hover{border-color:rgba(239,220,177,.6);box-shadow:0 10px 30px rgba(216,181,108,.14);transform:translateY(-2px)}
+}
+details.pr[open],.plan-list li:focus-within{border-color:rgba(239,220,177,.55);box-shadow:0 8px 28px rgba(216,181,108,.1)}
+@media(prefers-reduced-motion:reduce){.content-card:hover,details.pr:hover,.plan-list li:hover{transform:none}}
+</style>
+<style>
+/* Saints and feast days, candle light mode */
+#saints{position:relative;overflow:hidden;background:linear-gradient(180deg,#061629 0%,#081b30 50%,#061629 100%)}
+#saints:before{content:'';position:absolute;left:0;right:0;top:0;height:min(640px,100%);z-index:0;background:url(img/sky-a.jpg) 78% top/cover no-repeat;opacity:.3;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 52%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 52%,transparent 100%)}
+#saints>*{position:relative;z-index:1}
+#saints:after{content:'';position:absolute;left:0;right:0;bottom:0;height:28px;z-index:2;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 28'%3E%3Cpath d='M10 2v24M4 9h12' stroke='%23d8b56c' stroke-width='2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center 2px/14px 22px no-repeat,linear-gradient(90deg,transparent,rgba(216,181,108,.6)) right calc(50% + 20px) center/min(300px,28%) 1px no-repeat,linear-gradient(270deg,transparent,rgba(216,181,108,.6)) left calc(50% + 20px) center/min(300px,28%) 1px no-repeat}
+#saints{scroll-margin-top:60px}
+.sn-card{max-width:900px;margin:0 auto;border:1px solid rgba(216,181,108,.27);padding:34px 30px 26px;background:radial-gradient(ellipse at 50% 120%,rgba(216,181,108,.12),transparent 55%),linear-gradient(135deg,#102b47,#071629)}
+.sn-today{text-align:center;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.1)}
+.sn-date{color:#b9c8da;font-size:.85rem;margin:0 0 10px}
+.sn-type{display:inline-block;font:700 .7rem 'DM Sans',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--gold2);margin:0 0 8px}
+.sn-name{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.2;margin:0 0 10px;text-wrap:balance}
+.sn-blurb{max-width:560px;margin:0 auto;color:#e4ebf4;font-family:'Source Serif 4',Georgia,serif;font-size:1.05rem;line-height:1.7}
+.sn-none{color:#cfdbe9;font-family:'Source Serif 4',Georgia,serif;font-size:1.05rem;line-height:1.7;margin:0}
+.sn-next h3{margin:22px 0 12px;color:var(--gold2);font:700 .72rem 'DM Sans',sans-serif;letter-spacing:.2em;text-transform:uppercase}
+.sn-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 16px}
+.sn-list li{display:grid;grid-template-columns:62px 1fr;gap:12px;align-items:center;padding:10px 12px;border:1px solid rgba(255,255,255,.08);background:rgba(8,26,47,.5);min-width:0}
+.sn-when{text-align:center;font:700 .7rem 'DM Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--gold2);line-height:1.35}
+.sn-when b{display:block;font:600 1.4rem 'Playfair Display',serif;letter-spacing:0;color:#fff}
+.sn-list li div{min-width:0}
+.sn-list strong{display:block;font:500 1rem/1.3 'Playfair Display',serif;color:#fff}
+.sn-list small{display:block;color:#9fb3c9;font-size:.78rem;margin-top:3px}
+.sn-note{margin:18px 0 0;color:#9fb3c9;font-size:.82rem;line-height:1.6;text-align:center}
+@media(max-width:700px){.sn-list{grid-template-columns:1fr}.sn-card{padding:26px 16px 20px}}
+/* candle mode */
+.reader.candle{background:radial-gradient(ellipse at 50% 30%,#2a1c0e 0%,#0d0905 75%);color:#ecd9ae}
+.reader.candle .face,.reader.candle .pg{background-color:#1c140c;background-image:none;color:#e9d3a4}
+.reader.candle .pg .hd{color:#a58d5a}.reader.candle .pg .no{color:#b49a62}
+.reader.candle .flow .ck{color:#b49a62}.reader.candle .flow .cn{color:#d8b56c}.reader.candle .flow .v sup{color:#d8b56c}
+.reader.candle .flow{color:#e9d3a4}.reader.candle .slot{background:#1c140c}.reader.candle .flow .v:hover{background:rgba(255,196,107,.12)}.reader.candle .flow .v.sel{background:rgba(255,196,107,.2)}.reader.candle .flow .v.mark sup{background:#d8b56c;color:#1c140c}
+.reader.candle .rstage:before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 50% 50%,rgba(255,170,70,.14),transparent 62%);animation:candle 5s ease-in-out infinite alternate}
+@keyframes candle{from{opacity:.65}to{opacity:1}}
+#candleBtn[aria-pressed=true]{color:#ffc46b;border-color:rgba(255,196,107,.7)}
+@media(prefers-reduced-motion:reduce){.reader.candle .rstage:before{animation:none}}
+</style>
+<style>
+/* candle label, menu, stained glass */
+#candleBtn{gap:6px;width:auto;padding-left:14px;padding-right:14px;border-radius:999px}
+#candleBtn .clbl{font:600 .8rem 'DM Sans',sans-serif}
+.candle-hint{margin:16px 0 0;max-width:520px;color:#b9c8da;font-size:.92rem;line-height:1.6}
+.candle-hint b{color:var(--gold2);font-weight:600}
+.votd-card{position:relative;overflow:hidden;border-radius:min(240px,46%) min(240px,46%) 0 0/170px 170px 0 0;padding:92px 34px 32px;border:1px solid rgba(216,181,108,.7);box-shadow:0 0 0 5px rgba(8,22,40,.9),0 0 0 6px rgba(216,181,108,.35);
+ background:
+  repeating-conic-gradient(from 0deg at 50% 0%,rgba(216,181,108,.16) 0 .5deg,transparent .5deg 15deg),
+  radial-gradient(ellipse at 18% 18%,rgba(70,120,190,.30),transparent 45%),
+  radial-gradient(ellipse at 82% 18%,rgba(216,150,70,.20),transparent 45%),
+  radial-gradient(ellipse at 50% 0%,rgba(120,90,190,.22),transparent 50%),
+  linear-gradient(180deg,#0e2a47,#071629)}
+.votd-card:before{content:'';position:absolute;inset:10px 10px 0;border:1px solid rgba(216,181,108,.35);border-bottom:0;border-radius:min(230px,45%) min(230px,45%) 0 0/160px 160px 0 0;pointer-events:none}
+.votd-card:after{content:'';position:absolute;left:50%;top:26px;width:16px;height:26px;margin-left:-8px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 28'%3E%3Cpath d='M10 2v24M4 9h12' stroke='%23efdcb1' stroke-width='2.4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center/contain no-repeat;pointer-events:none}
+.votd-card>*{position:relative;z-index:1}
+.votd-card blockquote,.votd-date{text-shadow:0 1px 8px rgba(4,12,24,.8)}
+@media(max-width:700px){.votd-card{padding:80px 18px 26px;border-radius:120px 120px 0 0/110px 110px 0 0}.votd-card:before{border-radius:112px 112px 0 0/102px 102px 0 0}}
+.nav-links a{white-space:nowrap}
+@media(max-width:480px){.rbar{gap:6px}.rbtn{padding:0 10px}#candleBtn{padding:0 10px;gap:5px}#candleBtn .clbl{font-size:.74rem}.rplace{white-space:nowrap}}
+</style>
 <!doctype html>
 <html lang="en">
 <head>
@@ -122,6 +233,13 @@ body{padding-left:0;padding-right:0}
 #menuBtn{min-width:44px;min-height:44px}
 @media(max-width:900px){.hero:before{opacity:.3}.hero-cross{opacity:.5!important}.hero-copy{color:#e1e9f3}}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+.pic-modal{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:16px;background:rgba(3,9,20,.88);backdrop-filter:blur(6px)}
+.pic-modal[hidden]{display:none}
+.pic-box{width:min(94vw,440px);max-height:96vh;overflow:auto;text-align:center}
+.pic-box img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid rgba(233,185,77,.55);box-shadow:0 24px 70px rgba(0,0,0,.55);background:#061629}
+.pic-btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
+.pic-note{margin-top:12px;font-size:.86rem;color:#b9c8da}
+.pic-busy{color:#d3deec;padding:60px 0}
 .hero-cross .tilt{pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .hero-cross .gloss{position:absolute;inset:0;pointer-events:none;-webkit-mask:url(img/cross.png) center/100% 100% no-repeat;mask:url(img/cross.png) center/100% 100% no-repeat;background:linear-gradient(112deg,transparent 38%,rgba(255,255,255,0) 42%,rgba(255,252,235,.95) 50%,rgba(255,255,255,0) 58%,transparent 62%) 130% 0/300% 100% no-repeat;opacity:0}
 .hero-cross.shine .gloss{animation:glossSweep 1.1s ease-out}
@@ -242,6 +360,7 @@ h1,h2,h3{text-wrap:balance}
 @media(max-width:650px){.bible-facts{display:grid;grid-template-columns:auto 1fr auto;gap:14px}.bible-facts b{font-size:1.5rem}}
 .brand,.nav-cta{white-space:nowrap}
 @media(max-width:1020px){.nav,.nav.scrolled{height:68px}.nav-links{display:none;position:absolute;top:68px;left:0;right:0;padding:22px max(24px,env(safe-area-inset-left,0px));background:rgba(5,19,35,.97);flex-direction:column;align-items:flex-start;gap:18px;border-bottom:1px solid var(--line)}.nav-links.open{display:flex}.menu-btn{display:block}.nav-inner{gap:16px}.nav-cta{margin-left:auto}}
+@media(max-width:1240px){.nav,.nav.scrolled{height:68px}.nav-links{display:none;position:absolute;top:68px;left:0;right:0;padding:22px max(24px,env(safe-area-inset-left,0px));background:rgba(5,19,35,.97);flex-direction:column;align-items:flex-start;gap:18px;border-bottom:1px solid var(--line)}.nav-links.open{display:flex}.menu-btn{display:block}.nav-inner{gap:16px}.nav-cta{margin-left:auto}}
 @media(max-width:650px){.nav-cta{display:none}}
 @media(max-width:900px){.pr-grid{grid-template-columns:1fr}.ros-card{padding:26px 18px 22px}}
 @media(max-width:560px){.ros-list li{grid-template-columns:40px 1fr}.ros-list button{grid-column:2;grid-row:3;justify-self:start;margin-top:6px}.ros-list li:before{grid-row:1/4}}
@@ -388,7 +507,7 @@ h1,h2,h3{text-wrap:balance}
 
 <nav class="nav" id="nav"><div class="container nav-inner">
   <a class="brand" href="#home" aria-label="Blessed Chuckles home"><img class="brand-mark" src="logo.jpg" alt="" width="38" height="38"><span>Blessed <b>Chuckles</b></span></a>
-  <div class="nav-links" id="navLinks"><a href="#songs">On the channel</a><a href="#verses">Verses</a><a href="#comfort">Comfort</a><a href="#prayers">Prayers</a><a href="#watch">Watch</a><a href="#read">Read the Bible</a></div>
+  <div class="nav-links" id="navLinks"><a href="#songs">On the channel</a><a href="#verses">Verses</a><a href="#comfort">Comfort</a><a href="#prayers">Prayers</a><a href="#plan">Reading plan</a><a href="#saints">Saints</a><a href="#watch">Watch</a><a href="#read">Read the Bible</a></div>
   <a class="nav-cta" href="https://www.youtube.com/@BlessedChuckles?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube ↗</a>
   <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
 </div></nav>
@@ -402,6 +521,14 @@ h1,h2,h3{text-wrap:balance}
     <div class="hero-note">Faith · Hope · Joy · God's goodness</div>
   </div></div><div class="hero-cross" aria-hidden="true"><div class="glow"></div><div class="tilt"><img src="img/cross.png" alt="" width="600" height="1007"><span class="gloss"></span></div></div><div class="scroll-cue">Scroll to discover</div></section>
 
+  <section class="votd" id="today"><div class="container"><div class="votd-card reveal">
+    <span class="eyebrow">Verse of the day</span><p class="votd-date" id="votdDate"></p>
+    <blockquote id="votdText">Rejoice in the Lord always: again, I say, rejoice.</blockquote><cite id="votdRef">Philippians 4:4</cite>
+    <div class="votd-btns"><button class="btn" type="button" id="votdRead">Read it in the Bible</button><button class="btn secondary" type="button" id="votdCopy">Copy</button><button class="btn secondary" type="button" id="votdPic">Save as picture</button></div>
+  </div></div></section>
+
+
+
   <section class="intro" id="about"><div class="container intro-grid"><div class="intro-copy reveal"><span class="eyebrow">The heart behind the channel</span><div class="section-head"><h2>A little light for <span>everyday life.</span></h2><p>Blessed Chuckles is a place to pause, reconnect with what matters, and find encouragement through music, prayer, and uplifting messages.</p></div><p>Whether you are beginning a new day, looking for peace before sleep, or simply need a reminder to keep believing, we hope you find something here that lifts your spirit.</p><div class="signature">Let God's love light your way.</div></div>
     <div class="photo-frame reveal"><img src="img/cross.jpg" alt="A wooden cross on a hilltop at sunrise. Hope rises with the light." width="900" height="985"></div></div></section>
 
@@ -414,7 +541,7 @@ h1,h2,h3{text-wrap:balance}
     </div></div></section>
 
   <section class="verses" id="verses"><div class="container"><div class="section-head reveal"><span class="eyebrow">A verse for today</span><h2>A word to <span>carry with you.</span></h2><p>Tap the button for another verse from the Catholic Bible.</p></div>
-    <div class="verse-card reveal"><div class="vc-mark" aria-hidden="true">“</div><blockquote id="verseText">Rejoice in the Lord always: again, I say, rejoice.</blockquote><cite id="verseRef">Philippians 4:4</cite><div class="vc-btns"><button class="btn" type="button" id="nextVerse">Another verse ↻</button><button class="btn secondary" type="button" id="readVerse">Read it in the Bible</button><button class="btn secondary" type="button" id="copyVerse">Copy</button></div></div></div></section>
+    <div class="verse-card reveal"><div class="vc-mark" aria-hidden="true">“</div><blockquote id="verseText">Rejoice in the Lord always: again, I say, rejoice.</blockquote><cite id="verseRef">Philippians 4:4</cite><div class="vc-btns"><button class="btn" type="button" id="nextVerse">Another verse ↻</button><button class="btn secondary" type="button" id="readVerse">Read it in the Bible</button><button class="btn secondary" type="button" id="copyVerse">Copy</button><button class="btn secondary" type="button" id="picVerse">Save as picture</button></div></div></div></section>
 
 
   <section class="comfort" id="comfort"><div class="container">
@@ -426,7 +553,7 @@ h1,h2,h3{text-wrap:balance}
         <p class="cc-intro" id="ccIntro"></p>
         <blockquote id="ccVerse"></blockquote><cite id="ccRef"></cite>
         <div class="cc-prayer"><span>A prayer for you</span><div id="ccPrayer"></div></div>
-        <div class="vc-btns"><button class="btn" type="button" id="ccNext">Another verse ↻</button><button class="btn secondary" type="button" id="ccRead">Read it in the Bible</button><button class="btn secondary" type="button" id="ccCopy">Copy</button><a class="btn secondary" href="#prayer">Ask us to pray for you</a></div>
+        <div class="vc-btns"><button class="btn" type="button" id="ccNext">Another verse ↻</button><button class="btn secondary" type="button" id="ccRead">Read it in the Bible</button><button class="btn secondary" type="button" id="ccCopy">Copy</button><button class="btn secondary" type="button" id="ccPic">Save as picture</button><a class="btn secondary" href="#prayer">Ask us to pray for you</a></div>
       </div>
     </div>
     <p class="care-note">If you feel you might hurt yourself, please do not wait. Reach out to someone right now. In the Philippines you can call the NCMH crisis hotline at 1553, or call your local emergency number.</p>
@@ -436,7 +563,32 @@ h1,h2,h3{text-wrap:balance}
   <section class="prayers" id="prayers"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">Pray with us</span><h2>Prayers for <span>every day.</span></h2><p>The prayers many Catholics pray, all in one place. Tap a prayer to open it. If you forgot the words, they are here for you.</p></div>
     <div class="pr-grid reveal"><div class="pr-group"><h3>Start here</h3><details class="pr"><summary>Sign of the Cross</summary><div class="pr-body"><small>Pray this to begin and end every prayer.</small><p>In the name of the Father, and of the Son, and of the Holy Spirit. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details><details class="pr"><summary>Our Father</summary><div class="pr-body"><small>The prayer Jesus taught us.</small><p>Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven.</p><p>Give us this day our daily bread; and forgive us our trespasses as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details><details class="pr"><summary>Hail Mary</summary><div class="pr-body"><small>Prayed in the Rosary and any time you need Mary's help.</small><p>Hail Mary, full of grace, the Lord is with thee; blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus.</p><p>Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details><details class="pr"><summary>Glory Be</summary><div class="pr-body"><small>A short prayer of praise.</small><p>Glory be to the Father, and to the Son, and to the Holy Spirit, as it was in the beginning, is now, and ever shall be, world without end. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details><details class="pr"><summary>Apostles' Creed</summary><div class="pr-body"><small>What Catholics believe, in a few lines.</small><p>I believe in God, the Father almighty, Creator of heaven and earth, and in Jesus Christ, his only Son, our Lord, who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died, and was buried. He descended into hell. On the third day he rose again from the dead. He ascended into heaven, and is seated at the right hand of God the Father almighty. From there he will come to judge the living and the dead.</p><p>I believe in the Holy Spirit, the holy Catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details></div><div class="pr-group"><h3>Morning and night</h3><details class="pr"><summary>Morning Offering</summary><div class="pr-body"><small>Give your whole day to God.</small><p>O Jesus, through the Immaculate Heart of Mary, I offer you my prayers, works, joys, and sufferings of this day, for all the intentions of your Sacred Heart, in union with the Holy Sacrifice of the Mass throughout the world, in reparation for my sins, for the intentions of all my associates, and in particular for the intentions of the Holy Father. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details><details class="pr"><summary>Evening prayer</summary><div class="pr-body"><small>In simple words, before you sleep.</small><p>Lord, thank You for this day. Forgive me for the times I did not love You or the people around me. Watch over me and my family while we sleep, and keep us safe. Let me wake up with a thankful heart. Into Your hands I place my spirit. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details><details class="pr"><summary>Angel of God</summary><div class="pr-body"><small>A prayer to your guardian angel.</small><p>Angel of God, my guardian dear, to whom God's love commits me here, ever this day be at my side, to light and guard, to rule and guide. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details><details class="pr"><summary>Act of Contrition</summary><div class="pr-body"><small>Pray this when you are sorry for your sins, and before Confession.</small><p>O my God, I am heartily sorry for having offended Thee, and I detest all my sins because of Thy just punishments, but most of all because they offend Thee, my God, who art all good and deserving of all my love. I firmly resolve, with the help of Thy grace, to sin no more and to avoid the near occasion of sin. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details></div><div class="pr-group"><h3>Help and protection</h3><details class="pr"><summary>Prayer to Saint Michael</summary><div class="pr-body"><small>Ask for protection every day.</small><p>Saint Michael the Archangel, defend us in battle. Be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly host, by the power of God, cast into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details><details class="pr"><summary>The Memorare</summary><div class="pr-body"><small>A trusting prayer to Mary when you need help.</small><p>Remember, O most gracious Virgin Mary, that never was it known that anyone who fled to thy protection, implored thy help, or sought thy intercession, was left unaided. Inspired by this confidence, I fly unto thee, O Virgin of virgins, my Mother; to thee do I come, before thee I stand, sinful and sorrowful. O Mother of the Word Incarnate, despise not my petitions, but in thy mercy hear and answer me. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details><details class="pr"><summary>Hail, Holy Queen</summary><div class="pr-body"><small>Prayed at the end of the Rosary.</small><p>Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve; to thee do we send up our sighs, mourning and weeping in this valley of tears.</p><p>Turn then, most gracious advocate, thine eyes of mercy toward us, and after this our exile, show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary.</p><p>Pray for us, O holy Mother of God, that we may be made worthy of the promises of Christ. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details></div><div class="pr-group"><h3>Meals and those who passed away</h3><details class="pr"><summary>Grace before meals</summary><div class="pr-body"><small>Before you eat.</small><p>Bless us, O Lord, and these thy gifts, which we are about to receive from thy bounty, through Christ our Lord. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details><details class="pr"><summary>Grace after meals</summary><div class="pr-body"><small>After you eat.</small><p>We give thee thanks for all thy benefits, O almighty God, who livest and reignest forever. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details><details class="pr"><summary>Prayer for the departed</summary><div class="pr-body"><small>For a loved one who has died.</small><p>Eternal rest grant unto them, O Lord, and let perpetual light shine upon them. May they rest in peace. Amen.</p><button type="button" class="pr-copy">Copy</button></div></details></div></div>
-  </div></section>
+  <div class="pr-group"><h3>Go deeper</h3>
+<details class="pr" id="pr-mercy"><summary>Divine Mercy Chaplet</summary><div class="pr-body"><small>Prayed on Rosary beads, often at 3 in the afternoon, the hour of mercy.</small>
+<p>Begin with the Sign of the Cross. Then pray one Our Father, one Hail Mary, and the Apostles' Creed.</p>
+<p>On each large bead pray: Eternal Father, I offer You the Body and Blood, Soul and Divinity of Your dearly beloved Son, Our Lord, Jesus Christ, in atonement for our sins and those of the whole world.</p>
+<p>On each of the ten small beads pray: For the sake of His sorrowful Passion, have mercy on us and on the whole world.</p>
+<p>Do this for five decades. At the end, pray three times: Holy God, Holy Mighty One, Holy Immortal One, have mercy on us and on the whole world.</p>
+<p>You may close with: Eternal God, in whom mercy is endless and the treasury of compassion inexhaustible, look kindly upon us and increase Your mercy in us, that in difficult moments we might not despair nor become despondent, but with great confidence submit ourselves to Your holy will, which is Love and Mercy itself. Amen.</p>
+<button type="button" class="pr-copy">Copy</button></div></details>
+<details class="pr" id="pr-angelus"><summary>The Angelus</summary><div class="pr-body"><small>Prayed at 6 in the morning, at noon, and at 6 in the evening.</small>
+<p>V. The Angel of the Lord declared unto Mary.<br>R. And she conceived of the Holy Spirit.<br>Hail Mary, full of grace, the Lord is with thee; blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.</p>
+<p>V. Behold the handmaid of the Lord.<br>R. Be it done unto me according to thy word.<br>Hail Mary, full of grace, the Lord is with thee; blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.</p>
+<p>V. And the Word was made flesh.<br>R. And dwelt among us.<br>Hail Mary, full of grace, the Lord is with thee; blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.</p>
+<p>V. Pray for us, O holy Mother of God.<br>R. That we may be made worthy of the promises of Christ.</p>
+<p>Let us pray. Pour forth, we beseech thee, O Lord, thy grace into our hearts; that we, to whom the incarnation of Christ thy Son was made known by the message of an angel, may by his passion and cross be brought to the glory of his resurrection, through the same Christ our Lord. Amen.</p>
+<button type="button" class="pr-copy">Copy</button></div></details>
+<details class="pr" id="pr-exam"><summary>Examination of conscience</summary><div class="pr-body"><small>A quiet checklist to prepare for Confession. Take your time.</small>
+<p class="pr-q"><b>Begin with a prayer.</b> Come, Holy Spirit. Help me see myself honestly and give me the courage to be sorry.</p>
+<p class="pr-q"><b>God first.</b> Have I prayed? Have I put something before God, like money, work, my phone, or my own plans? Have I missed Mass on Sunday or a holy day on purpose? Have I used God's name carelessly?</p>
+<p class="pr-q"><b>My family.</b> Have I honored and helped my parents and family? Have I been impatient, harsh, or angry? Am I holding a grudge or refusing to forgive someone?</p>
+<p class="pr-q"><b>My words and my work.</b> Have I lied, gossiped, or hurt someone with my words? Have I taken what is not mine, cheated, or wasted time I should have used well at work or in school?</p>
+<p class="pr-q"><b>Purity.</b> Have I kept my thoughts, eyes, words, and actions pure? Have I respected my body and the dignity of others, including what I watch and read?</p>
+<p class="pr-q"><b>My heart.</b> Have I been proud, jealous, greedy, or lazy? Have I helped those in need when I could?</p>
+<p class="pr-q"><b>Then.</b> Be truly sorry, go to Confession, tell your sins to the priest, and do the penance he gives you. Many people pray the Act of Contrition at the end.</p>
+<p class="pr-q"><b>Act of Contrition.</b> O my God, I am heartily sorry for having offended Thee, and I detest all my sins because of Thy just punishments, but most of all because they offend Thee, my God, who art all good and deserving of all my love. I firmly resolve, with the help of Thy grace, to sin no more and to avoid the near occasions of sin. Amen.</p>
+<p class="care-note left">This is only a guide, not a full list. A priest will gladly help you in Confession, even if you forgot something or feel nervous.</p></div></details>
+</div></div></section>
 
 
   <section class="rosary" id="rosary"><div class="container">
@@ -448,6 +600,26 @@ h1,h2,h3{text-wrap:balance}
       <details class="pr ros-how"><summary>How do I pray the Rosary?</summary><div class="pr-body"><ol class="steps"><li>Make the Sign of the Cross and pray the Apostles' Creed.</li><li>Pray one Our Father, three Hail Marys, and one Glory Be.</li><li>Say the first mystery. Pray one Our Father, ten Hail Marys, and one Glory Be. You can add the Fatima prayer: O my Jesus, forgive us our sins, save us from the fires of hell, lead all souls to heaven, especially those most in need of thy mercy.</li><li>Repeat for the second, third, fourth, and fifth mysteries. Think about each mystery as you pray the ten Hail Marys.</li><li>Finish with the Hail, Holy Queen and the Sign of the Cross.</li></ol><p class="care-note left" style="margin-top:14px">On Sundays during Advent and Christmas, many people pray the Joyful Mysteries. During Lent, many pray the Sorrowful Mysteries.</p></div></details>
     </div>
   </div></section>
+
+  <section class="plan" id="plan"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Grow a little every day</span><h2>30 days in <span>the Gospels.</span></h2><p>Read about the life of Jesus in about 10 minutes a day. Tap Read to open the chapters, then tick the day when you finish. Your progress is saved on this device.</p></div>
+    <div class="plan-card reveal">
+      <div class="plan-top"><div class="plan-prog"><b id="planCount">0 of 30 days done</b><div class="bar"><i id="planBar"></i></div></div>
+        <div class="plan-btns"><button class="btn" type="button" id="planNext">Start Day 1</button><button class="btn secondary" type="button" id="planReset">Start over</button></div></div>
+      <p class="plan-done" id="planDone">You finished all four Gospels. Thank you, Lord. Well done!</p>
+      <ol class="plan-list" id="planList"></ol>
+    </div></div></section>
+
+  <section class="saints" id="saints"><div class="container">
+    <div class="section-head reveal"><span class="eyebrow">Walk with the saints</span><h2>Saints and <span>feast days.</span></h2><p>See who the Church remembers today, and what is coming up. A quick way to learn about the friends of God.</p></div>
+    <div class="sn-card reveal"><div class="sn-today" id="snToday"></div>
+      <div class="sn-next"><h3>Coming up</h3><ul class="sn-list" id="snList"></ul></div>
+      <p class="sn-note">Based on the General Roman Calendar, with a few Philippine memorials. Some dates differ by country or diocese, and moving feasts like Easter are not listed. Ask your parish for the exact schedule.</p></div>
+  </div></section>
+
+
+
+
 
   <section class="featured" id="watch"><div class="container"><div class="featured-panel reveal">
     <div class="prayer-vid"><iframe src="https://www.youtube-nocookie.com/embed/bGaSqhK-7tg?rel=0&playsinline=1" title="Daily Prayer, Blessed Chuckles" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
@@ -464,7 +636,8 @@ h1,h2,h3{text-wrap:balance}
 
   <section class="bible" id="bible"><div class="bible-glow" aria-hidden="true"></div><div class="bible-photo" aria-hidden="true"></div><div class="container bible-grid">
     <div class="reveal"><span class="eyebrow">Read along</span><div class="section-head"><h2>Read the <span>Bible</span> here.</h2><p>The complete Catholic Bible, all 73 books, set out like a real book. Turn the pages, tap a verse to bookmark it, and when you stop, it remembers where you were.</p></div>
-      <div class="bible-cta"><a class="btn" href="#read">Start reading</a><a class="btn secondary" href="#read" id="contBtn" hidden>Continue reading</a></div>
+      <div class="bible-cta"><a class="btn" href="#read">Start reading</a><a class="btn secondary" href="#read" id="contBtn" hidden>Continue reading</a><a class="btn secondary" href="#plan">30 day reading plan</a></div>
+      <p class="candle-hint"><b>Tip:</b> once you start reading, tap the little candle at the top for a warm night mode that is gentle on the eyes.</p>
       <div class="chips-label">Or start somewhere good</div>
       <div class="chips"><button type="button" data-go="0.1">Genesis 1</button><button type="button" data-go="20.22">Psalm 22</button><button type="button" data-go="21.3">Proverbs 3</button><button type="button" data-go="49.1">John 1</button><button type="button" data-go="51.8">Romans 8</button></div>
       <div class="bible-facts"><div><b>73</b><span>Books</span></div><div><b>Saved</b><span>Your place, automatically</span></div><div><b>Free</b><span>No sign in needed</span></div></div></div>
@@ -495,6 +668,7 @@ h1,h2,h3{text-wrap:balance}
     </button>
     <button class="rbtn rplace" type="button" id="placeBtn" aria-haspopup="dialog" aria-label="Choose a book and chapter"><span id="placeLabel">John 1</span></button>
     <div class="rtools">
+      <button class="rbtn" type="button" id="candleBtn" aria-pressed="false" aria-label="Candle light mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c2 3 3 4.5 3 6.5a3 3 0 0 1-6 0C9 6.5 10 5 12 2z"/><path d="M8 13h8v8H8z"/></svg><span class="clbl">Candle</span></button>
       <div class="sizewrap">
         <button class="rbtn" type="button" id="sizeBtn" aria-label="Text size" aria-expanded="false">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19L8 6l5 13M5 15h6"/><path d="M15 19l3-8 3 8M16 17h4"/></svg>
@@ -1351,4 +1525,135 @@ else{started=true;load(cur);}
 </script>
 
 <script>(function(){var c=document.querySelector('.hero-cross'),t=c&&c.querySelector('.tilt');if(!t)return;var tm;function go(){c.classList.remove('shine');void c.offsetWidth;c.classList.add('shine');clearTimeout(tm);tm=setTimeout(function(){c.classList.remove('shine')},1200)}t.addEventListener('click',go);t.setAttribute('role','button');t.setAttribute('tabindex','0');t.setAttribute('aria-label','Make the cross shine');t.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})})();</script>
+<div id="picModal" class="pic-modal" hidden role="dialog" aria-modal="true" aria-label="Verse picture"><div class="pic-box"><div class="pic-busy" id="picBusy">Making your picture...</div><img id="picImg" alt="Verse picture ready to save" hidden><div class="pic-btns"><button class="btn" type="button" id="picSave" hidden>Save picture</button><button class="btn secondary" type="button" id="picShare" hidden>Share</button><button class="btn secondary" type="button" id="picClose">Close</button></div><p class="pic-note" id="picNote" hidden>On a phone, you can also press and hold the picture to save it.</p></div></div>
+<script>
+(function(){
+var W=1080,H=1350,modal=document.getElementById('picModal'),img=document.getElementById('picImg'),busy=document.getElementById('picBusy'),save=document.getElementById('picSave'),share=document.getElementById('picShare'),note=document.getElementById('picNote'),closeB=document.getElementById('picClose');
+var blobUrl=null,blobFile=null,lastFocus=null;
+function load(src){return new Promise(function(res){var i=new Image();i.onload=function(){res(i)};i.onerror=function(){res(null)};i.src=src})}
+function wrap(x,t,max){var w=t.split(/\s+/),lines=[],l='';w.forEach(function(s){var tt=l?l+' '+s:s;if(x.measureText(tt).width>max&&l){lines.push(l);l=s}else l=tt});if(l)lines.push(l);return lines}
+async function make(text,ref){
+  try{await Promise.all([document.fonts.load('600 64px "Playfair Display"'),document.fonts.load('700 26px "DM Sans"'),document.fonts.load('500 24px "DM Sans"')])}catch(e){}
+  var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
+  var g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#071426');g.addColorStop(.55,'#0a1d36');g.addColorStop(1,'#061629');x.fillStyle=g;x.fillRect(0,0,W,H);
+  var sky=await load('img/hero-sky.jpg');
+  if(sky){var sc=H/sky.height,sw=sky.width*sc;x.globalAlpha=.62;x.drawImage(sky,-(sw*.70-W*.62),0,sw,H);x.globalAlpha=1}
+  var ov=x.createLinearGradient(0,0,0,H);ov.addColorStop(0,'rgba(6,14,28,.55)');ov.addColorStop(.35,'rgba(6,14,28,.42)');ov.addColorStop(.7,'rgba(6,14,28,.55)');ov.addColorStop(1,'rgba(6,14,28,.92)');x.fillStyle=ov;x.fillRect(0,0,W,H);
+  var rg=x.createRadialGradient(W/2,H*.47,60,W/2,H*.47,620);rg.addColorStop(0,'rgba(5,12,26,.5)');rg.addColorStop(1,'rgba(5,12,26,0)');x.fillStyle=rg;x.fillRect(0,0,W,H);
+  x.strokeStyle='rgba(233,185,77,.85)';x.lineWidth=2.5;x.strokeRect(42,42,W-84,H-84);x.strokeStyle='rgba(233,185,77,.35)';x.lineWidth=1;x.strokeRect(58,58,W-116,H-116);
+  var cross=await load('img/cross.png');if(cross){var ch=150,cw=cross.width*ch/cross.height;x.shadowColor='rgba(240,200,110,.7)';x.shadowBlur=30;x.drawImage(cross,W/2-cw/2,106,cw,ch);x.shadowBlur=0}
+  x.textAlign='center';x.textBaseline='alphabetic';
+  var size=70,lines,lh,maxW=820,maxH=640;
+  for(;size>=34;size-=2){x.font='600 '+size+'px "Playfair Display", Georgia, serif';lines=wrap(x,text,maxW);lh=size*1.3;if(lines.length*lh<=maxH)break}
+  var blockH=lines.length*lh,top=(H*.5)-(blockH/2)-10;
+  x.fillStyle='#f6f1e4';x.shadowColor='rgba(0,0,0,.55)';x.shadowBlur=18;
+  lines.forEach(function(l,i){x.fillText(l,W/2,top+(i+1)*lh-lh*.25)});x.shadowBlur=0;
+  var ry=top+blockH+58;x.fillStyle='#e9b94d';x.font='700 28px "DM Sans", system-ui, sans-serif';
+  try{x.letterSpacing='6px'}catch(e){}
+  x.fillText(ref.toUpperCase(),W/2+3,ry);
+  try{x.letterSpacing='0px'}catch(e){}
+  x.strokeStyle='rgba(233,185,77,.7)';x.lineWidth=2;x.beginPath();x.moveTo(W/2-50,ry+34);x.lineTo(W/2+50,ry+34);x.stroke();
+  var logo=await load('logo.jpg');
+  if(logo){x.save();x.beginPath();x.arc(W/2,1130,40,0,Math.PI*2);x.clip();x.drawImage(logo,W/2-40,1090,80,80);x.restore();x.strokeStyle='#e9b94d';x.lineWidth=2;x.beginPath();x.arc(W/2,1130,41,0,Math.PI*2);x.stroke()}
+  x.fillStyle='#f6f1e4';x.font='600 34px "Playfair Display", Georgia, serif';x.fillText('Blessed Chuckles',W/2,1220);
+  x.fillStyle='#b9c8da';x.font='500 24px "DM Sans", system-ui, sans-serif';try{x.letterSpacing='2px'}catch(e){}x.fillText('blessedchuckles.netlify.app',W/2,1260);
+  return new Promise(function(res){c.toBlob(function(b){res(b)},'image/png')});
+}
+function reset(){if(blobUrl){URL.revokeObjectURL(blobUrl);blobUrl=null}blobFile=null;img.hidden=true;img.removeAttribute('src');save.hidden=true;share.hidden=true;note.hidden=true;busy.hidden=false}
+function closeM(){modal.hidden=true;reset();document.body.style.overflow='';if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+async function open(text,ref,btn){
+  lastFocus=btn;reset();modal.hidden=false;document.body.style.overflow='hidden';closeB.focus();
+  var t=(text||'').replace(/\s+/g,' ').trim(),r=(ref||'').trim();
+  var b=await make(t,r);if(modal.hidden)return;
+  if(!b){busy.textContent='Sorry, we could not make the picture. Please try again.';return}
+  blobUrl=URL.createObjectURL(b);img.src=blobUrl;img.hidden=false;busy.hidden=true;save.hidden=false;note.hidden=false;
+  var name='blessed-chuckles-'+r.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.png';
+  try{blobFile=new File([b],name,{type:'image/png'})}catch(e){blobFile=null}
+  save.onclick=function(){var a=document.createElement('a');a.href=blobUrl;a.download=name;document.body.appendChild(a);a.click();a.remove()};
+  if(blobFile&&navigator.canShare&&navigator.canShare({files:[blobFile]})){share.hidden=false;share.onclick=function(){navigator.share({files:[blobFile],title:'Blessed Chuckles',text:r+' | blessedchuckles.netlify.app'}).catch(function(){})}}
+}
+closeB.addEventListener('click',closeM);
+modal.addEventListener('click',function(e){if(e.target===modal)closeM()});
+document.addEventListener('keydown',function(e){if(!modal.hidden&&e.key==='Escape')closeM()});
+window.bcPic=open;var pv=document.getElementById('picVerse');if(pv)pv.addEventListener('click',function(){open(document.getElementById('verseText').textContent,document.getElementById('verseRef').textContent,pv)});
+var pc=document.getElementById('ccPic');if(pc)pc.addEventListener('click',function(){open(document.getElementById('ccVerse').textContent,document.getElementById('ccRef').textContent,pc)});
+})();
+</script>
+<script>
+(function(){
+var DAILY=[{"t": "This is the day which the Lord hath made: let us be glad and rejoice therein.", "r": "Psalms 117:24", "b": 20, "c": 117, "v": 24}, {"t": "Our God is our refuge and strength: a helper in troubles, which have found us exceedingly.", "r": "Psalms 45:2", "b": 20, "c": 45, "v": 2}, {"t": "O taste, and see that the Lord is sweet: blessed is the man that hopeth in him.", "r": "Psalms 33:9", "b": 20, "c": 33, "v": 9}, {"t": "Thy word is a lamp to my feet, and a light to my paths.", "r": "Psalms 118:105", "b": 20, "c": 118, "v": 105}, {"t": "Have confidence in the Lord with all thy heart, and lean not upon thy own prudence.", "r": "Proverbs 3:5", "b": 21, "c": 3, "v": 5}, {"t": "In all thy ways think on him, and he will direct thy steps.", "r": "Proverbs 3:6", "b": 21, "c": 3, "v": 6}, {"t": "Fear not, for I am with thee: turn not aside, for I am thy God: I have strengthened thee, and have helped thee, and the right hand of my just one hath upheld thee.", "r": "Isaiah 41:10", "b": 26, "c": 41, "v": 10}, {"t": "But they that hope in the Lord shall renew their strength, they shall take wings as eagles, they shall run and not be weary, they shall walk and not faint.", "r": "Isaiah 40:31", "b": 26, "c": 40, "v": 31}, {"t": "For I know the thoughts that I think towards you, saith the Lord, thoughts of peace, and not of affliction, to give you an end and patience.", "r": "Jeremiah 29:11", "b": 27, "c": 29, "v": 11}, {"t": "Behold I command thee, take courage, and be strong. Fear not, and be not dismayed: because the Lord thy God is with thee in all things whatsoever thou shalt go to.", "r": "Joshua 1:9", "b": 5, "c": 1, "v": 9}, {"t": "Come to me all you that labor and are burdened, and I will refresh you.", "r": "Matthew 11:28", "b": 46, "c": 11, "v": 28}, {"t": "Seek ye therefore first the kingdom of God, and his justice, and all these things shall be added unto you.", "r": "Matthew 6:33", "b": 46, "c": 6, "v": 33}, {"t": "Blessed are the peacemakers: for they shall be called the children of God.", "r": "Matthew 5:9", "b": 46, "c": 5, "v": 9}, {"t": "Therefore I say unto you, all things, whatsoever you ask when ye pray, believe that you shall receive: and they shall come unto you.", "r": "Mark 11:24", "b": 47, "c": 11, "v": 24}, {"t": "Because no word shall be impossible with God.", "r": "Luke 1:37", "b": 48, "c": 1, "v": 37}, {"t": "And I say to you: Ask, and it shall be given you: seek, and you shall find: knock, and it shall be opened to you.", "r": "Luke 11:9", "b": 48, "c": 11, "v": 9}, {"t": "For God so loved the world, as to give his only begotten Son: that whosoever believeth in him may not perish, but may have life everlasting.", "r": "John 3:16", "b": 49, "c": 3, "v": 16}, {"t": "Peace I leave with you: my peace I give unto you: not as the world giveth, do I give unto you. Let not your heart be troubled: nor let it be afraid.", "r": "John 14:27", "b": 49, "c": 14, "v": 27}, {"t": "I am the vine: you the branches. He that abideth in me, and I in him, the same beareth much fruit: for without me you can do nothing.", "r": "John 15:5", "b": 49, "c": 15, "v": 5}, {"t": "And we know that to them that love God all things work together unto good: to such as, according to his purpose, are called to be saints.", "r": "Romans 8:28", "b": 51, "c": 8, "v": 28}, {"t": "What shall we then say to these things? If God be for us, who is against us?", "r": "Romans 8:31", "b": 51, "c": 8, "v": 31}, {"t": "Rejoicing in hope. Patient in tribulation. Instant in prayer.", "r": "Romans 12:12", "b": 51, "c": 12, "v": 12}, {"t": "And now there remain faith, hope, and charity, these three: but the greatest of these is charity.", "r": "1 Corinthians 13:13", "b": 52, "c": 13, "v": 13}, {"t": "And he said to me: My grace is sufficient for thee: for power is made perfect in infirmity. Gladly therefore will I glory in my infirmities, that the power of Christ may dwell in me.", "r": "2 Corinthians 12:9", "b": 53, "c": 12, "v": 9}, {"t": "Be nothing solicitous: but in every thing, by prayer and supplication, with thanksgiving, let your petitions be made known to God.", "r": "Philippians 4:6", "b": 56, "c": 4, "v": 6}, {"t": "I can do all things in him who strengtheneth me.", "r": "Philippians 4:13", "b": 56, "c": 4, "v": 13}, {"t": "Always rejoice.", "r": "1 Thessalonians 5:16", "b": 58, "c": 5, "v": 16}, {"t": "Now, faith is the substance of things to be hoped for, the evidence of things that appear not.", "r": "Hebrews 11:1", "b": 64, "c": 11, "v": 1}, {"t": "But if any of you want wisdom, let him ask of God who giveth to all men abundantly and upbraideth not. And it shall be given him.", "r": "James 1:5", "b": 65, "c": 1, "v": 5}, {"t": "Casting all your care upon him, for he hath care of you.", "r": "1 Peter 5:7", "b": 66, "c": 5, "v": 7}, {"t": "He that loveth not knoweth not God: for God is charity.", "r": "1 John 4:8", "b": 68, "c": 4, "v": 8}, {"t": "And God shall wipe away all tears from their eyes: and death shall be no more. Nor mourning, nor crying, nor sorrow shall be any more, for the former things are passed away.", "r": "Apocalypse 21:4", "b": 72, "c": 21, "v": 4}];
+function $(i){return document.getElementById(i)}
+function fallbackCopy(txt,done){try{var ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();done()}catch(e){}}
+/* verse of the day */
+(function(){
+ var d=new Date(),n=Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000),v=DAILY[n%DAILY.length];
+ if(!$('votdText'))return;
+ $('votdText').textContent=v.t;$('votdRef').textContent=v.r;
+ try{$('votdDate').textContent=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}catch(e){}
+ $('votdRead').addEventListener('click',function(){if(window.bcOpenAt)window.bcOpenAt(v.b,v.c,v.v);else location.hash='read'});
+ var cb=$('votdCopy');cb.addEventListener('click',function(){var txt=v.t+' ('+v.r+')';var done=function(){cb.textContent='Copied';setTimeout(function(){cb.textContent='Copy'},1600)};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,function(){fallbackCopy(txt,done)});else fallbackCopy(txt,done)});
+ var pb=$('votdPic');pb.addEventListener('click',function(){if(window.bcPic)window.bcPic(v.t,v.r,pb)});
+})();
+/* 30 day Gospel plan */
+(function(){
+ if(!$('planList'))return;
+ var G=[[46,'Matthew',28],[47,'Mark',16],[48,'Luke',24],[49,'John',21]],KEY='bc_plan_v1',ch=[],days=[],done={};
+ G.forEach(function(g){for(var c=1;c<=g[2];c++)ch.push({b:g[0],n:g[1],c:c})});
+ for(var i=0,k=0;i<30;i++){var cnt=i<29?3:ch.length-87;days.push(ch.slice(k,k+cnt));k+=cnt}
+ function label(a){var out=[],i=0;while(i<a.length){var j=i;while(j+1<a.length&&a[j+1].b===a[i].b)j++;out.push(a[i].n+' '+a[i].c+(j>i?' to '+a[j].c:''));i=j+1}return out.join(', ')}
+ try{var raw=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(raw))raw.forEach(function(x){if(x>=1&&x<=30)done[x]=1})}catch(e){}
+ function save(){try{localStorage.setItem(KEY,JSON.stringify(Object.keys(done).map(Number)))}catch(e){}}
+ function nextDay(){for(var i=1;i<=30;i++)if(!done[i])return i;return 0}
+ var list=$('planList'),armed=false,armT;
+ days.forEach(function(a,idx){var n=idx+1,li=document.createElement('li');li.setAttribute('data-day',n);
+  var b=document.createElement('button');b.type='button';b.className='pd-check';b.textContent='\u2713';b.setAttribute('aria-pressed','false');b.setAttribute('aria-label','Mark day '+n+' as done');
+  b.addEventListener('click',function(){if(done[n])delete done[n];else done[n]=1;save();render()});
+  var t=document.createElement('div');t.className='pd-t';t.innerHTML='<b>Day '+n+'</b><span></span>';t.lastChild.textContent=label(a);
+  var r=document.createElement('button');r.type='button';r.className='pd-read';r.textContent='Read';r.setAttribute('aria-label','Read day '+n+': '+label(a));
+  r.addEventListener('click',function(){window.bcOpenAt&&window.bcOpenAt(a[0].b,a[0].c,1)});
+  li.appendChild(b);li.appendChild(t);li.appendChild(r);list.appendChild(li)});
+ function render(){var c=Object.keys(done).length,nx=nextDay();
+  $('planCount').textContent=c+' of 30 days done';$('planBar').style.width=(c/30*100)+'%';
+  [].forEach.call(list.children,function(li){var n=+li.getAttribute('data-day'),d=!!done[n];li.className=(d?'done ':'')+(n===nx?'next':'');var b=li.querySelector('.pd-check');b.setAttribute('aria-pressed',d?'true':'false')});
+  $('planDone').className='plan-done'+(c===30?' on':'');
+  var nb=$('planNext');nb.hidden=c===30;nb.textContent=c===0?'Start Day 1':'Continue with Day '+nx}
+ $('planNext').addEventListener('click',function(){var n=nextDay();if(n&&window.bcOpenAt)window.bcOpenAt(days[n-1][0].b,days[n-1][0].c,1)});
+ var rs=$('planReset');rs.addEventListener('click',function(){
+  if(!armed){armed=true;rs.textContent='Tap again to start over';armT=setTimeout(function(){armed=false;rs.textContent='Start over'},4000);return}
+  clearTimeout(armT);armed=false;rs.textContent='Start over';done={};save();render()});
+ render();
+})();
+})();
+</script>
+<script>
+(function(){
+var SAINTS=[[1, 1, "Mary, the Holy Mother of God", "Solemnity", "The Church begins the year honoring Mary, who said yes to God and gave us Jesus."], [1, 2, "St. Basil the Great and St. Gregory Nazianzen", "Memorial", "Two close friends and bishops who helped the Church understand who Jesus is."], [1, 17, "St. Anthony, Abbot", "Memorial", "He gave away what he owned and went into the desert to pray. Many monks followed him."], [1, 21, "St. Agnes", "Memorial", "A young girl who stayed faithful to Christ, even to the end of her life."], [1, 24, "St. Francis de Sales", "Memorial", "A gentle bishop who taught that holiness is possible in everyday life."], [1, 25, "The Conversion of St. Paul", "Feast", "The day Jesus met Saul on the road to Damascus and changed his life."], [1, 26, "St. Timothy and St. Titus", "Memorial", "Helpers of St. Paul who became bishops and cared for the early Church."], [1, 28, "St. Thomas Aquinas", "Memorial", "A great teacher and friend of students. He wrote deeply about faith and reason."], [1, 31, "St. John Bosco", "Memorial", "A priest who gave his life to help poor and abandoned boys."], [2, 2, "The Presentation of the Lord", "Feast", "Mary and Joseph bring baby Jesus to the Temple. Many bless candles on this day."], [2, 5, "St. Agatha", "Memorial", "A young woman of Sicily who stayed faithful to Christ through great suffering."], [2, 6, "St. Paul Miki and Companions", "Memorial", "Martyrs of Japan who forgave those who put them to death."], [2, 10, "St. Scholastica", "Memorial", "The sister of St. Benedict. She loved God and prayed with great trust."], [2, 11, "Our Lady of Lourdes", "Optional memorial", "We remember Mary's appearances to St. Bernadette and pray for the sick."], [2, 14, "St. Cyril and St. Methodius", "Memorial", "Brothers who brought the Gospel to the Slavic peoples."], [2, 22, "The Chair of St. Peter", "Feast", "We give thanks for the ministry of Peter and the Popes who follow him."], [3, 7, "St. Perpetua and St. Felicity", "Memorial", "Two young mothers of the early Church who stayed faithful as martyrs."], [3, 17, "St. Patrick", "Optional memorial", "A bishop who brought the faith to Ireland."], [3, 19, "St. Joseph, Husband of Mary", "Solemnity", "The quiet and faithful man who cared for Mary and Jesus."], [3, 25, "The Annunciation of the Lord", "Solemnity", "The angel Gabriel asks Mary to be the mother of Jesus, and she says yes."], [4, 2, "St. Pedro Calungsod", "Memorial in the Philippines", "A young Filipino catechist and martyr who helped teach the faith in the Marianas."], [4, 25, "St. Mark, Evangelist", "Feast", "The writer of the Gospel of Mark."], [4, 29, "St. Catherine of Siena", "Memorial", "She served the poor and the sick and spoke boldly for the Church."], [5, 1, "St. Joseph the Worker", "Optional memorial", "We ask St. Joseph to bless our work and all who work."], [5, 2, "St. Athanasius", "Memorial", "A bishop who defended the truth that Jesus is truly God."], [5, 3, "St. Philip and St. James", "Feast", "Two of the apostles of Jesus."], [5, 13, "Our Lady of Fatima", "Optional memorial", "We remember Mary's call to pray the Rosary for peace."], [5, 14, "St. Matthias, Apostle", "Feast", "Chosen by the apostles to take the place of Judas."], [5, 26, "St. Philip Neri", "Memorial", "A joyful priest in Rome who loved to help young people."], [5, 31, "The Visitation of the Blessed Virgin Mary", "Feast", "Mary visits her cousin Elizabeth, and both rejoice in God."], [6, 1, "St. Justin, Martyr", "Memorial", "A teacher who explained the faith to others and gave his life for it."], [6, 3, "St. Charles Lwanga and Companions", "Memorial", "Young martyrs of Uganda who would not turn away from Christ."], [6, 11, "St. Barnabas, Apostle", "Memorial", "A kind helper of St. Paul, known as the son of encouragement."], [6, 13, "St. Anthony of Padua", "Memorial", "A beloved preacher. Many people ask his help to find lost things."], [6, 24, "The Birth of St. John the Baptist", "Solemnity", "He prepared the way for Jesus."], [6, 29, "St. Peter and St. Paul, Apostles", "Solemnity", "Two great pillars of the Church."], [7, 3, "St. Thomas, Apostle", "Feast", "The apostle who said to Jesus, My Lord and my God."], [7, 11, "St. Benedict", "Memorial", "The father of Western monks. His rule is built on prayer and work."], [7, 15, "St. Bonaventure", "Memorial", "A Franciscan teacher and bishop who loved Christ deeply."], [7, 16, "Our Lady of Mount Carmel", "Optional memorial", "We honor Mary under this title, loved by many who wear the brown scapular."], [7, 22, "St. Mary Magdalene", "Feast", "The first witness of the Resurrection who told the apostles."], [7, 25, "St. James, Apostle", "Feast", "One of the first apostles Jesus called."], [7, 26, "St. Joachim and St. Anne", "Memorial", "The parents of Mary and grandparents of Jesus."], [7, 29, "St. Martha", "Memorial", "The friend of Jesus who served at her home in Bethany."], [7, 31, "St. Ignatius of Loyola", "Memorial", "A soldier who became a priest and founded the Jesuits."], [8, 1, "St. Alphonsus Liguori", "Memorial", "A bishop and teacher who helped many people trust in God's mercy."], [8, 4, "St. John Vianney", "Memorial", "The humble parish priest of Ars who spent long hours hearing Confessions."], [8, 6, "The Transfiguration of the Lord", "Feast", "Jesus shines with glory before Peter, James and John."], [8, 8, "St. Dominic", "Memorial", "He founded the Order of Preachers, known as the Dominicans."], [8, 10, "St. Lawrence, Deacon and Martyr", "Feast", "A deacon who cared for the poor and called them the treasure of the Church."], [8, 11, "St. Clare of Assisi", "Memorial", "A friend of St. Francis who lived a simple life of prayer."], [8, 14, "St. Maximilian Kolbe", "Memorial", "A priest who gave his life to save another man in a prison camp."], [8, 15, "The Assumption of the Blessed Virgin Mary", "Solemnity", "Mary is taken body and soul into heavenly glory."], [8, 21, "St. Pius X", "Memorial", "A Pope who encouraged people to receive Holy Communion often."], [8, 22, "The Queenship of Mary", "Memorial", "We honor Mary as Queen of heaven and earth."], [8, 24, "St. Bartholomew, Apostle", "Feast", "One of the twelve apostles."], [8, 27, "St. Monica", "Memorial", "A mother whose long prayers helped bring her son, St. Augustine, to God."], [8, 28, "St. Augustine", "Memorial", "He searched for truth for many years and wrote that our hearts are restless until they rest in God."], [8, 29, "The Passion of St. John the Baptist", "Memorial", "We remember how John gave his life for the truth."], [9, 3, "St. Gregory the Great", "Memorial", "A Pope who served the poor and loved the Church."], [9, 8, "The Nativity of the Blessed Virgin Mary", "Feast", "We celebrate the birthday of Mary."], [9, 13, "St. John Chrysostom", "Memorial", "A bishop whose name means golden mouth, for his beautiful preaching."], [9, 14, "The Exaltation of the Holy Cross", "Feast", "We honor the Cross, the sign of Christ's love for us."], [9, 15, "Our Lady of Sorrows", "Memorial", "We remember how Mary stood by Jesus at the foot of the Cross."], [9, 21, "St. Matthew, Apostle and Evangelist", "Feast", "A tax collector whom Jesus called to follow him."], [9, 27, "St. Vincent de Paul", "Memorial", "A priest who dedicated his life to serving the poor."], [9, 28, "St. Lorenzo Ruiz and Companions", "Memorial in the Philippines", "The first Filipino saint, who gave his life for the faith in Japan."], [9, 29, "St. Michael, St. Gabriel and St. Raphael", "Feast", "We honor the three archangels named in the Scriptures."], [9, 30, "St. Jerome", "Memorial", "He translated the Bible into Latin and loved the Word of God."], [10, 1, "St. Therese of Lisieux", "Memorial", "She taught the little way of doing small things with great love."], [10, 2, "The Holy Guardian Angels", "Memorial", "We thank God for the angels who watch over us."], [10, 4, "St. Francis of Assisi", "Memorial", "He loved poverty, creation and Christ. Many know him as the friend of animals."], [10, 7, "Our Lady of the Rosary", "Memorial", "We thank Mary and pray the Rosary for the Church and the world."], [10, 15, "St. Teresa of Avila", "Memorial", "A Carmelite nun and teacher of prayer."], [10, 17, "St. Ignatius of Antioch", "Memorial", "An early bishop and martyr who wrote letters to the first Christians."], [10, 18, "St. Luke, Evangelist", "Feast", "The writer of the Gospel of Luke and the Acts of the Apostles."], [10, 22, "St. John Paul II", "Optional memorial", "A Pope who loved young people and traveled the world, including the Philippines."], [10, 28, "St. Simon and St. Jude, Apostles", "Feast", "Two of the twelve apostles. Many pray to St. Jude in hard times."], [11, 1, "All Saints", "Solemnity", "We honor all the saints, known and unknown, who are with God."], [11, 2, "The Commemoration of All the Faithful Departed", "Solemnity", "The day we pray for our loved ones who have died."], [11, 3, "St. Martin de Porres", "Optional memorial", "A humble Dominican brother who cared for the sick and the poor."], [11, 4, "St. Charles Borromeo", "Memorial", "A bishop who worked hard to help the Church grow in holiness."], [11, 9, "The Dedication of the Lateran Basilica", "Feast", "We celebrate the cathedral of the Pope in Rome, the mother church of all churches."], [11, 10, "St. Leo the Great", "Memorial", "A Pope who taught clearly that Jesus is truly God and truly man."], [11, 11, "St. Martin of Tours", "Memorial", "A soldier who shared his cloak with a poor man."], [11, 12, "St. Josaphat", "Memorial", "A bishop and martyr who worked for unity among Christians."], [11, 17, "St. Elizabeth of Hungary", "Memorial", "A queen who cared for the poor and the sick."], [11, 21, "The Presentation of the Blessed Virgin Mary", "Memorial", "We remember how Mary was given to God from her childhood."], [11, 22, "St. Cecilia", "Memorial", "A young martyr and the patron of musicians."], [11, 24, "St. Andrew Dung-Lac and Companions", "Memorial", "Martyrs of Vietnam who stayed faithful to Christ."], [11, 30, "St. Andrew, Apostle", "Feast", "The first apostle called by Jesus. He brought his brother Peter to him."], [12, 3, "St. Francis Xavier", "Memorial", "A missionary who carried the Gospel to Asia."], [12, 6, "St. Nicholas", "Optional memorial", "A bishop known for his generosity to the poor and children."], [12, 7, "St. Ambrose", "Memorial", "A bishop of Milan who helped lead St. Augustine to the faith."], [12, 8, "The Immaculate Conception of the Blessed Virgin Mary", "Solemnity", "Mary was kept free from sin from the first moment of her life."], [12, 12, "Our Lady of Guadalupe", "Optional memorial", "We honor Mary, who appeared to St. Juan Diego in Mexico."], [12, 13, "St. Lucy", "Memorial", "A young martyr whose name means light."], [12, 14, "St. John of the Cross", "Memorial", "A Carmelite priest and poet who wrote about the soul's love for God."], [12, 25, "The Nativity of the Lord, Christmas", "Solemnity", "We celebrate the birth of Jesus our Savior."], [12, 26, "St. Stephen, the First Martyr", "Feast", "The first to give his life for Christ."], [12, 27, "St. John, Apostle and Evangelist", "Feast", "The beloved disciple of Jesus."], [12, 28, "The Holy Innocents", "Feast", "We remember the children who died because of Herod's fear."]];
+function $(i){return document.getElementById(i)}
+(function(){
+ var today=$('snToday'),list=$('snList');if(!today||!list)return;
+ var now=new Date(),y=now.getFullYear(),t0=Date.UTC(y,now.getMonth(),now.getDate());
+ function when(e){var t=Date.UTC(y,e[0]-1,e[1]);if(t<t0)t=Date.UTC(y+1,e[0]-1,e[1]);return t}
+ var mon=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ var all=SAINTS.map(function(e){return{e:e,t:when(e)}}).sort(function(a,b){return a.t-b.t});
+ var cur=all.filter(function(x){return x.t===t0});
+ var ds='';try{ds=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}catch(e){}
+ function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n}
+ today.appendChild(el('p','sn-date',ds));
+ if(cur.length){var e=cur[0].e;today.appendChild(el('span','sn-type',e[3]));today.appendChild(el('h3','sn-name',e[2]));today.appendChild(el('p','sn-blurb',e[4]))}
+ else{today.appendChild(el('p','sn-none','There is no major feast or memorial in the universal calendar today. It is a good day to pray quietly, and your parish may remember a saint of its own.'))}
+ all.filter(function(x){return x.t>t0}).slice(0,4).forEach(function(x){var e=x.e,d=Math.round((x.t-t0)/86400000),li=el('li'),w=el('div','sn-when');
+  w.appendChild(document.createTextNode(mon[e[0]-1]));w.appendChild(el('b',null,e[1]));
+  var m=el('div');m.appendChild(el('strong',null,e[2]));m.appendChild(el('small',null,e[3]+' \u00b7 '+(d===1?'Tomorrow':'In '+d+' days')));
+  li.appendChild(w);li.appendChild(m);list.appendChild(li)});
+})();
+(function(){
+ var btn=$('candleBtn'),rd=$('reader');if(!btn||!rd)return;
+ function set(on,save){rd.classList.toggle('candle',on);btn.setAttribute('aria-pressed',on?'true':'false');if(save){try{localStorage.setItem('bc_candle',on?'1':'0')}catch(e){}}}
+ var on=false;try{on=localStorage.getItem('bc_candle')==='1'}catch(e){}
+ set(on,false);
+ btn.addEventListener('click',function(){set(!rd.classList.contains('candle'),true)});
+})();
+})();
+</script>
 </html>
