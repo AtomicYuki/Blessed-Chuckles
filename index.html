@@ -379,6 +379,11 @@ h1,h2,h3{text-wrap:balance}
 .prayer-vid{position:relative;width:320px;max-width:100%;aspect-ratio:9/16;background:#03101c;border:1.5px solid #e9b94d;border-radius:14px;overflow:hidden;box-shadow:0 0 40px rgba(233,185,77,.22),0 26px 50px -22px #000}
 .prayer-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 @media(max-width:900px){#watch .featured-panel{grid-template-columns:1fr;justify-items:start}.prayer-vid{justify-self:center}}
+#song .prayer-vid{width:100%;aspect-ratio:16/9}
+#songday .prayer-vid{width:100%;aspect-ratio:16/9}
+#songday .watch-btns{display:flex;flex-wrap:wrap;gap:12px}
+@media(max-width:900px){#songday .featured-panel{grid-template-columns:1fr}}
+@media(max-width:900px){#song .featured-panel{grid-template-columns:1fr}}
 @media(max-width:650px){.vid-frame{padding:10px}.vid-foot{padding:14px 4px 2px}}
 
 /* the reader */
@@ -621,6 +626,12 @@ h1,h2,h3{text-wrap:balance}
 
 
 
+  <section class="featured" id="song"><div class="container"><div class="featured-panel reveal">
+    <div class="prayer-vid"><iframe src="https://www.youtube-nocookie.com/embed/y0JKeVTNR1Q?rel=0&playsinline=1" title="In Your Grace I Stand, Blessed Chuckles" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <div class="featured-copy"><span class="eyebrow">Our most loved song</span><h2>In Your Grace I Stand.</h2><p>A quiet worship song for the days you feel tired, thankful, or just need to remember that you are held. Listen, sing along, and share it with someone who needs hope today.</p><div class="watch-btns"><a class="btn" href="https://www.youtube.com/watch?v=y0JKeVTNR1Q" target="_blank" rel="noopener">Watch on YouTube ↗</a><a class="btn secondary" href="https://www.youtube.com/playlist?list=PL38cIHl8TaCB5jaWVgBySkaIp9z1KGNWF" target="_blank" rel="noopener">More worship songs</a></div></div></div></div></section>
+  <section class="featured" id="songday"><div class="container"><div class="featured-panel reveal">
+    <div class="prayer-vid"><iframe id="sdFrame" title="Song of the day, Blessed Chuckles" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <div class="featured-copy"><span class="eyebrow">Song of the day</span><h2 id="sdTitle">A worship song for today.</h2><p>A new worship song every day. Press play, sing along, and let it settle your heart. Come back tomorrow for the next one.</p><div class="watch-btns"><a class="btn" id="sdWatch" href="https://www.youtube.com/playlist?list=PL38cIHl8TaCB5jaWVgBySkaIp9z1KGNWF" target="_blank" rel="noopener">Watch on YouTube ↗</a><button class="btn secondary" type="button" id="sdNext">Another song ↻</button><a class="btn secondary" href="https://www.youtube.com/playlist?list=PL38cIHl8TaCB5jaWVgBySkaIp9z1KGNWF" target="_blank" rel="noopener">All worship songs</a></div></div></div></div></section>
   <section class="featured" id="watch"><div class="container"><div class="featured-panel reveal">
     <div class="prayer-vid"><iframe src="https://www.youtube-nocookie.com/embed/bGaSqhK-7tg?rel=0&playsinline=1" title="Daily Prayer, Blessed Chuckles" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
     <div class="featured-copy"><span class="eyebrow">Prayer video</span><h2>A prayer for your day.</h2><p>Pause for less than a minute, take a breath, and pray with us. When you finish, share it with someone who needs encouragement today.</p><div class="watch-btns"><a class="btn" href="https://www.youtube.com/watch?v=bGaSqhK-7tg" target="_blank" rel="noopener">Watch on YouTube ↗</a><a class="btn secondary" href="https://www.youtube.com/playlist?list=PL38cIHl8TaCCFPNzpxSCA_VuzkY-w_idM" target="_blank" rel="noopener">More prayers</a></div></div></div></div></section>
@@ -1655,5 +1666,11 @@ function $(i){return document.getElementById(i)}
  btn.addEventListener('click',function(){set(!rd.classList.contains('candle'),true)});
 })();
 })();
+</script>
+<script>
+(function(){var S=[["y0JKeVTNR1Q", "In Your Grace I Stand"], ["aXg4J6Y7MOc", "When Grace Falls Down"], ["1MqCvdmDrWQ", "Hold On to Faith"], ["iuZqDlJtui4", "Grateful Praise"], ["jYpw4OIy73I", "Whisper of Healing"], ["-RKh8MZhvRM", "Glorious Praise"], ["sPaCq0Qiocw", "Hold My Hand"], ["RV_XZPh2bwI", "Rise Above"], ["TGsAT9orqF4", "Everlasting Hallelujah"], ["yVGCE55vUwo", "King of Glory"], ["GtV3vXPfmnk", "Always Be the Same"], ["meifdKhywSQ", "Jesus, Our Salvation"], ["FOsOKSQABJQ", "Anchored in Jesus"], ["wPcTTxStWt0", "Joined in His Love"], ["6wmojivWTvg", "Never Alone, Jesus Lives in Me"], ["-x8lm2WYhe0", "Healer of the Weak"], ["Dc9DHtLEr5I", "Jesus, Save Me from the Storm"], ["osdMdIZIOcY", "You Hold My Heart"], ["pHdGytZ6dnw", "Forever You Reign"], ["ex02YSXccRM", "Dakilang Pag ibig"], ["0CpDyCBfJSM", "Mercy Wrote My Name"], ["a_Bd9FvcXIE", "I’m Blessed by the Lord"], ["ilKCENI-UTw", "You Are My Strength"], ["USk6fneDUwc", "Shield of Grace"], ["LApu8FzHDx8", "Thank You Jesus"], ["7oEfj3jL5dE", "Held by Grace"], ["ou9AVkjO1Lc", "Through It All"], ["WVB5XGuKdrg", "When I Can’t See You"]];var f=document.getElementById('sdFrame');if(!f)return;
+var d=new Date();var day=Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000);var i=day%S.length;var shift=0;
+function show(){var s=S[(i+shift)%S.length];f.src='https://www.youtube-nocookie.com/embed/'+s[0]+'?rel=0&playsinline=1';document.getElementById('sdTitle').textContent=s[1];document.getElementById('sdWatch').href='https://www.youtube.com/watch?v='+s[0];}
+show();document.getElementById('sdNext').addEventListener('click',function(){shift++;show();});})();
 </script>
 </html>
