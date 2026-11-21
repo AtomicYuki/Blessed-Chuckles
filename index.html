@@ -518,7 +518,13 @@ h1,h2,h3{text-wrap:balance}
 </div></nav>
 
 <main>
-  <section class="hero" id="home"><div class="container"><div class="hero-content">
+  <style id="hero4">
+.hero:before{background:url(img/hero-bible.jpg) 100% 45%/cover no-repeat!important;opacity:1!important}
+.hero:after{background:linear-gradient(90deg,rgba(4,16,30,.7) 0%,rgba(4,16,30,.42) 45%,rgba(4,16,30,0) 72%),linear-gradient(0deg,var(--navy) 0%,transparent 22%,rgba(4,16,30,0) 100%)!important}
+.hero-cross{display:none!important}
+@media(max-width:900px){.hero:before{background:url(img/hero-bible.jpg) 76% 62%/cover no-repeat!important;opacity:.55!important}.hero:after{background:linear-gradient(90deg,rgba(4,16,30,.7) 0%,rgba(4,16,30,.35) 100%),linear-gradient(0deg,var(--navy) 0%,transparent 22%)!important}}
+</style>
+<section class="hero" id="home"><div class="container"><div class="hero-content">
     <span class="eyebrow">A place for faith and inspiration</span>
     <h1>Find your peace.<em>Strengthen your faith.</em></h1>
     <p class="hero-copy">A quiet corner of the internet for worship, prayer, and reminders that God's goodness is always near. Take a breath, be encouraged, and let hope rise.</p>
