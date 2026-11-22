@@ -90,7 +90,8 @@ exports.handler = async (event) => {
         ],
       }),
     });
-    if (!r.ok) return json(502, { reply: "I am having trouble right now. Please try again in a moment. 🙏" });
+    if (!r.ok) { console.error("Gemini error", r.status, (await r.text()).slice(0, 500)); return json(502, { reply: "I am having trouble right now. Please try again in a moment. 🙏" }); }
+    if (false) return json(502, { reply: "I am having trouble right now. Please try again in a moment. 🙏" });
     const data = await r.json();
     const parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
     const text = parts.map((p) => p.text || "").join("").replace(/[–—]/g, ",").trim();
