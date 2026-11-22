@@ -2,7 +2,7 @@
 // Uses Google Gemini. Needs one environment variable in Netlify: GEMINI_API_KEY
 // Optional: GEMINI_MODEL (default below).
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
 
 const CRISIS = /(kill myself|end my life|suicide|suicidal|want to die|wanna die|don'?t want to live|hurt myself|self.?harm|cut myself|magpakamatay|magpapakamatay|ayoko na mabuhay|gusto ko nang mamatay|gusto kong mamatay|saktan ang sarili)/i;
 
@@ -90,8 +90,7 @@ exports.handler = async (event) => {
         ],
       }),
     });
-    if (!r.ok) { console.error("Gemini error", r.status, (await r.text()).slice(0, 500)); return json(502, { reply: "I am having trouble right now. Please try again in a moment. 🙏" }); }
-    if (false) return json(502, { reply: "I am having trouble right now. Please try again in a moment. 🙏" });
+    if (!r.ok) return json(502, { reply: "I am having trouble right now. Please try again in a moment. 🙏" });
     const data = await r.json();
     const parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
     const text = parts.map((p) => p.text || "").join("").replace(/[–—]/g, ",").trim();
