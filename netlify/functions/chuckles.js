@@ -1,8 +1,8 @@
 // Chuckles chatbot backend for Blessed Chuckles (Netlify Function).
-// Needs one environment variable in Netlify: ANTHROPIC_API_KEY
-// Optional: CHUCKLES_MODEL (default below), CHUCKLES_MOCK=1 for testing without a key.
+// Uses Google Gemini. Needs one environment variable in Netlify: GEMINI_API_KEY
+// Optional: GEMINI_MODEL (default below).
 
-const MODEL = process.env.CHUCKLES_MODEL || "claude-haiku-5-5";
+const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
 const CRISIS = /(kill myself|end my life|suicide|suicidal|want to die|wanna die|don'?t want to live|hurt myself|self.?harm|cut myself|magpakamatay|magpapakamatay|ayoko na mabuhay|gusto ko nang mamatay|gusto kong mamatay|saktan ang sarili)/i;
 
@@ -27,6 +27,8 @@ const SYSTEM = "You are Chuckles, the gentle companion on the Blessed Chuckles w
 "- Do not argue about politics or other religions. Stay kind and gently return to peace and prayer.\n" +
 "- If someone talks about hurting themselves or ending their life, or says someone is in danger or being abused, do not keep chatting normally. Tell them kindly to reach out right now: call or text 1553 (NCMH Crisis Hotline) or 0917 899 8727, or call 911 if in danger, and to tell someone near them. Stay short and caring.\n" +
 "- Stay on topic: faith, prayer, comfort, and the website. Politely decline unrelated tasks like homework, coding, or shopping.";
+
+const FALLBACK = "I am here with you. I could not put my thoughts into words just now. Would you tell me a little more about how you are feeling? 🙏";
 
 const hits = new Map(); // simple per-IP rate limit (best effort, resets when the function sleeps)
 function limited(ip) {
@@ -67,23 +69,34 @@ exports.handler = async (event) => {
   const last = msgs[msgs.length - 1].content;
   if (CRISIS.test(last)) return json(200, { crisis: true });
 
-  if (!process.env.ANTHROPIC_API_KEY) return json(500, { error: "Chuckles is not set up yet." });
+  if (!process.env.GEMINI_API_KEY) return json(500, { error: "Chuckles is not set up yet." });
 
   try {
-    const r = await fetch("https://api.anthropic.com/v1/messages", {
+    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + MODEL + ":generateContent", {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-api-key": process.env.ANTHROPIC_API_KEY,
-        "anthropic-version": "2023-06-01",
+        "x-goog-api-key": process.env.GEMINI_API_KEY,
       },
-      body: JSON.stringify({ model: MODEL, max_tokens: 450, system: SYSTEM, messages: msgs }),
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: SYSTEM }] },
+        contents: msgs.map((m) => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
+        generationConfig: { maxOutputTokens: 700, temperature: 0.7, thinkingConfig: { thinkingBudget: 0 } },
+        safetySettings: [
+          { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_ONLY_HIGH" },
+          { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_ONLY_HIGH" },
+          { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_ONLY_HIGH" },
+          { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_ONLY_HIGH" },
+        ],
+      }),
     });
     if (!r.ok) return json(502, { reply: "I am having trouble right now. Please try again in a moment. 🙏" });
     const data = await r.json();
-    const text = (data.content || []).filter((b) => b.type === "text").map((b) => b.text).join("\n").replace(/[–—]/g, ",").trim();
+    const parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
+    const text = parts.map((p) => p.text || "").join("").replace(/[–—]/g, ",").trim();
+    if (!text) return json(200, { reply: FALLBACK });
     if (CRISIS.test(text) && !/1553/.test(text)) return json(200, { crisis: true });
-    return json(200, { reply: text || "I am here with you. 🙏" });
+    return json(200, { reply: text });
   } catch (e) {
     return json(502, { reply: "I am having trouble right now. Please try again in a moment. 🙏" });
   }
