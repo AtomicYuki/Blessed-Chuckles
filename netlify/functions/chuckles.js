@@ -2,7 +2,7 @@
 // Uses Google Gemini. Needs one environment variable in Netlify: GEMINI_API_KEY
 // Optional: GEMINI_MODEL (default below).
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.1-flash-lite";
 
 const CRISIS = /(kill myself|end my life|suicide|suicidal|want to die|wanna die|don'?t want to live|hurt myself|self.?harm|cut myself|magpakamatay|magpapakamatay|ayoko na mabuhay|gusto ko nang mamatay|gusto kong mamatay|saktan ang sarili)/i;
 
@@ -46,7 +46,7 @@ const json = (code, body) => ({
   body: JSON.stringify(body),
 });
 
-const FALLBACKS = ["gemini-3.6-flash", "gemini-3.5-flash-lite"];
+const FALLBACKS = ["gemini-3.5-flash", "gemini-2.5-flash-lite"];
 
 // Tries the main model (twice), then fallback models, so a busy model does not break the chat.
 async function callGemini(url, opts) {
