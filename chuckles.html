@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chuckles | Blessed Chuckles</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#061629;--navy2:#0b2038;--gold:#d8b56c;--white:#f7f8fb;--muted:#aab8c8;--line:rgba(220,231,244,.14);--me:#d8b56c;--bot:#0f2740}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--navy);color:var(--white);font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center}
+.wrap{width:100%;max-width:720px;height:100%;display:flex;flex-direction:column;padding:0 16px}
+header{display:flex;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+header img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+header h1{font:600 22px 'Playfair Display',Georgia,serif;margin:0}
+header p{margin:2px 0 0;color:var(--muted);font-size:13px}
+header a{margin-left:auto;color:var(--gold);font-size:14px;text-decoration:none}
+#log{flex:1;overflow-y:auto;padding:18px 0;display:flex;flex-direction:column;gap:12px}
+.m{max-width:86%;padding:12px 15px;border-radius:16px;line-height:1.55;font-size:16px;white-space:pre-wrap;overflow-wrap:anywhere}
+.bot{background:var(--bot);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.me{background:var(--me);color:#1a1405;align-self:flex-end;border-bottom-right-radius:4px}
+.verse{align-self:flex-start;max-width:86%;border-left:3px solid var(--gold);padding:8px 14px;margin:-4px 0 0 6px;font:italic 400 17px/1.55 'Source Serif 4',Georgia,serif;color:#e9edf3}
+.verse b{display:block;font:600 13px 'DM Sans',sans-serif;font-style:normal;color:var(--gold);margin-top:6px;letter-spacing:.04em}
+.crisis{align-self:stretch;background:#2a1a1f;border:1px solid #c9788a;border-radius:14px;padding:16px;line-height:1.6}
+.crisis h2{margin:0 0 6px;font:600 18px 'Playfair Display',serif}
+.crisis a{color:var(--gold);font-weight:700;font-size:20px;text-decoration:none;display:inline-block;margin:4px 0}
+.typing{color:var(--muted);font-size:14px;align-self:flex-start;padding-left:6px}
+form{display:flex;gap:10px;padding:12px 0 8px}
+textarea{flex:1;resize:none;background:var(--navy2);color:var(--white);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;font-size:16px;min-height:50px;max-height:140px}
+textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
+button{background:var(--gold);color:#1a1405;border:0;border-radius:14px;padding:0 20px;font:700 16px 'DM Sans',sans-serif;cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
+.note{color:var(--muted);font-size:12.5px;text-align:center;padding:0 0 12px;line-height:1.5}
+@media(max-width:480px){.m,.verse{max-width:94%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="logo.jpg" alt="">
+    <div><h1>Chuckles</h1><p>Here to listen. Tell me what is on your heart.</p></div>
+    <a href="/">Back to site</a>
+  </header>
+  <div id="log" aria-live="polite"></div>
+  <form id="f">
+    <textarea id="t" rows="1" maxlength="1500" placeholder="Type here. You can say anything." aria-label="Your message"></textarea>
+    <button id="b" type="submit">Send</button>
+  </form>
+  <p class="note">Chuckles is an AI, not a priest, counselor or doctor. Please do not share names, addresses or passwords. Chats are not saved. If you are in danger, call 911. For emotional crisis call or text 1553 or 0917 899 8727.</p>
+</div>
+<script>
+(function(){
+  var log=document.getElementById('log'),f=document.getElementById('f'),t=document.getElementById('t'),b=document.getElementById('b');
+  var history=[],index=null;
+  var CRISIS=/(kill myself|end my life|suicide|suicidal|want to die|wanna die|don'?t want to live|hurt myself|self.?harm|cut myself|magpakamatay|magpapakamatay|ayoko na mabuhay|gusto ko nang mamatay|gusto kong mamatay|saktan ang sarili)/i;
+
+  function add(cls,text){var d=document.createElement('div');d.className=cls;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
+  function crisisCard(){
+    var d=document.createElement('div');d.className='crisis';
+    d.innerHTML='<h2>You matter, and you do not have to face this alone.</h2>Please reach out to someone right now.<br>'+
+      '<a href="tel:1553">Call 1553</a> (NCMH Crisis Hotline, free, 24 hours)<br>'+
+      '<a href="tel:09178998727">0917 899 8727</a> (call or text)<br>'+
+      'If you are in danger, call <b>911</b>. Please also tell someone near you, a family member, a friend or your parish priest.';
+    log.appendChild(d);log.scrollTop=log.scrollHeight;
+  }
+  var BOOKS=["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Ruth", "1 Samuel", "2 Samuel", "1 Kings", "2 Kings", "1 Chronicles", "2 Chronicles", "Ezra", "Nehemiah", "Tobit", "Judith", "Esther", "Job", "Psalms", "Proverbs", "Ecclesiastes", "Song of Songs", "Wisdom", "Sirach", "Isaiah", "Jeremiah", "Lamentations", "Baruch", "Ezekiel", "Daniel", "Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi", "1 Maccabees", "2 Maccabees", "Matthew", "Mark", "Luke", "John", "Acts", "Romans", "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians", "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus", "Philemon", "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John", "3 John", "Jude", "Apocalypse"];
+  function loadIndex(){
+    return Promise.resolve(BOOKS.map(function(n){return [n]}));
+  }
+  // Verse text always comes from the site's own Douay-Rheims files, never from the AI.
+  function verse(ref){
+    var m=/^\s*([1-3]?\s?[A-Za-z ]+?)\s+(\d+):(\d+)(?:\s*-\s*(\d+))?\s*$/.exec(ref);
+    if(!m)return Promise.resolve();
+    var name=m[1].trim().toLowerCase(),ch=+m[2],v1=+m[3],v2=m[4]?+m[4]:+m[3];
+    if(v2<v1||v2-v1>5)return Promise.resolve();
+    return loadIndex().then(function(idx){
+      var i=-1;for(var k=0;k<idx.length;k++){if(idx[k][0].toLowerCase()===name){i=k;break;}}
+      if(i<0)return;
+      return fetch('/bible/'+i+'.json').then(function(r){return r.json()}).then(function(book){
+        var c=book[ch-1];if(!c)return;
+        var out=[];for(var v=v1;v<=v2;v++){if(!c[v-1])return;out.push(c[v-1]);}
+        var d=document.createElement('div');d.className='verse';
+        d.appendChild(document.createTextNode(out.join(' ')));
+        var bb=document.createElement('b');bb.textContent=idx[i][0]+' '+ch+':'+v1+(v2>v1?'-'+v2:'')+' (Douay-Rheims)';
+        d.appendChild(bb);log.appendChild(d);log.scrollTop=log.scrollHeight;
+      });
+    }).catch(function(){});
+  }
+  function show(reply){
+    var verses=[],text=reply.replace(/\[\[\s*verse:\s*([^\]]+?)\s*\]\]/gi,function(_,r){verses.push(r);return '';}).replace(/\n{3,}/g,'\n\n').trim();
+    if(text)add('m bot',text);
+    return verses.slice(0,1).reduce(function(p,r){return p.then(function(){return verse(r)})},Promise.resolve());
+  }
+  add('m bot','Hi, I am Chuckles. 🙏 I am here to listen. You can tell me about your day, your worries, or anything that feels heavy. What is on your heart right now?');
+
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var msg=t.value.trim();if(!msg)return;
+    t.value='';add('m me',msg);
+    if(CRISIS.test(msg)){crisisCard();return;}
+    history.push({role:'user',content:msg});
+    b.disabled=true;var ty=add('typing','Chuckles is listening...');
+    fetch('/.netlify/functions/chuckles',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history})})
+      .then(function(r){return r.json()})
+      .then(function(j){
+        ty.remove();
+        if(j.crisis){crisisCard();return;}
+        var reply=j.reply||'I am having trouble right now. Please try again in a moment. 🙏';
+        history.push({role:'assistant',content:reply});
+        return show(reply);
+      })
+      .catch(function(){ty.remove();add('m bot','I am having trouble right now. Please try again in a moment. 🙏');})
+      .then(function(){b.disabled=false;t.focus();});
+  });
+  t.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();f.requestSubmit();}});
+})();
+</script>
+</body>
+</html>
