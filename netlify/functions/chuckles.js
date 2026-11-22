@@ -2,7 +2,7 @@
 // Uses Google Gemini. Needs one environment variable in Netlify: GEMINI_API_KEY
 // Optional: GEMINI_MODEL (default below).
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
 const CRISIS = /(kill myself|end my life|suicide|suicidal|want to die|wanna die|don'?t want to live|hurt myself|self.?harm|cut myself|magpakamatay|magpapakamatay|ayoko na mabuhay|gusto ko nang mamatay|gusto kong mamatay|saktan ang sarili)/i;
 
@@ -72,7 +72,7 @@ exports.handler = async (event) => {
   if (!process.env.GEMINI_API_KEY) return json(500, { error: "Chuckles is not set up yet." });
 
   try {
-    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + MODEL + ":generateContent", {
+    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + MODEL + ":generateContent", { signal: AbortSignal.timeout(20000),
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -81,7 +81,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: SYSTEM }] },
         contents: msgs.map((m) => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })),
-        generationConfig: { maxOutputTokens: 700, temperature: 0.7, thinkingConfig: { thinkingBudget: 0 } },
+        generationConfig: { maxOutputTokens: 700, temperature: 0.7, thinkingConfig: { thinkingLevel: "low" } },
         safetySettings: [
           { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_ONLY_HIGH" },
           { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_ONLY_HIGH" },
@@ -90,7 +90,7 @@ exports.handler = async (event) => {
         ],
       }),
     });
-    if (!r.ok) return json(502, { reply: "I am having trouble right now. Please try again in a moment. 🙏" });
+    if (!r.ok) { console.error("Gemini error", r.status, (await r.text()).slice(0,500)); } if (!r.ok) return json(502, { reply: "I am having trouble right now. Please try again in a moment. 🙏" });
     const data = await r.json();
     const parts = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [];
     const text = parts.map((p) => p.text || "").join("").replace(/[–—]/g, ",").trim();
