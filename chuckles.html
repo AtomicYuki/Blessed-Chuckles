@@ -135,7 +135,7 @@ form button{width:42px;height:42px;padding:0;border-radius:50%;font-size:20px;fl
     if(CRISIS.test(msg)){crisisCard();return;}
     history.push({role:'user',content:msg});
     b.disabled=true;var ty=add('typing','Chuckles is listening...');
-    fetch('/.netlify/functions/chuckles',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history})})
+    fetch((location.hostname.indexOf('netlify')>-1?'/.netlify/functions/chuckles':'/api/chuckles'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history})})
       .then(function(r){return r.json()})
       .then(function(j){
         ty.remove();
