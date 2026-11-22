@@ -37,6 +37,16 @@ button{background:var(--gold);color:#1a1405;border:0;border-radius:14px;padding:
 button:disabled{opacity:.5;cursor:default}
 .note{color:var(--muted);font-size:12.5px;text-align:center;padding:0 0 12px;line-height:1.5}
 @media(max-width:480px){.m,.verse{max-width:94%}}
+
+/* calm, easy on the eyes */
+:root{--navy:#0f2a40;--navy2:#17364f;--white:#e9eff5;--muted:#a9bccd;--line:rgba(200,222,240,.16);--bot:#1c3d57}
+body{background:linear-gradient(180deg,#10304a 0%,#143a52 50%,#1a4250 100%) fixed}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 45% at 50% 0%,rgba(236,205,140,.16),transparent 70%),radial-gradient(ellipse 50% 40% at 50% 100%,rgba(120,190,200,.10),transparent 70%);animation:breathe 9s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.6}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){body::before{animation:none}}
+.wrap{position:relative;z-index:1}
+.m{box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.me{background:#e3c88b}
 </style>
 </head>
 <body>
