@@ -45,6 +45,27 @@ const json = (code, body) => ({
   body: JSON.stringify(body),
 });
 
+const FALLBACKS = ["gemini-3.6-flash", "gemini-3.5-flash-lite"];
+
+// Tries the main model (twice), then fallback models, so a busy model does not break the chat.
+async function callGemini(url, opts) {
+  const base = "/models/" + MODEL + ":";
+  const tries = [MODEL, MODEL, ...FALLBACKS];
+  let last = null;
+  for (let i = 0; i < tries.length; i++) {
+    try {
+      const res = await fetch(url.replace(base, "/models/" + tries[i] + ":"), { ...opts, signal: AbortSignal.timeout(6000) });
+      if (res.ok) return res;
+      last = res;
+      console.error("Gemini error", tries[i], res.status);
+      if (i === 0) await new Promise((r) => setTimeout(r, 700));
+    } catch (e) {
+      console.error("Gemini fetch failed", tries[i], String(e).slice(0, 100));
+    }
+  }
+  return last || { ok: false, status: 599, text: async () => "" };
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") return json(405, { error: "Method not allowed" });
 
@@ -72,8 +93,7 @@ exports.handler = async (event) => {
   if (!process.env.GEMINI_API_KEY) return json(500, { error: "Chuckles is not set up yet." });
 
   try {
-    const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + MODEL + ":generateContent", { signal: AbortSignal.timeout(20000),
-      method: "POST",
+    const r = await callGemini("https://generativelanguage.googleapis.com/v1beta/models/" + MODEL + ":generateContent", { method: "POST",
       headers: {
         "content-type": "application/json",
         "x-goog-api-key": process.env.GEMINI_API_KEY,
