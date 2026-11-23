@@ -1,4 +1,4 @@
-// Anonymous counters only: chats started, helpful, not helpful. No chat text is ever stored.
+// (database connected) Anonymous counters only: chats started, helpful, not helpful. No chat text is ever stored.
 // Needs a free Upstash Redis (Vercel Storage). Without it, this does nothing and nothing breaks.
 const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
